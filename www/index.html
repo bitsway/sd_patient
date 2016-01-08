@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<!-- Designed and developed by Business Solution Apps team -->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>SmartDoctor</title>
+		<link rel="stylesheet" href="static/smartTheme.min.css" />
+		<link rel="stylesheet" href="static/jquery.mobile.icons.min.css" />
+		
+		<link rel="stylesheet" href="static/jquery.mobile-1.4.0.min.css" />
+        <script src="static/jquery-1.10.2.min.js"></script>
+        <script src="static/jquery.mobile-1.4.0.min.js"></script>
+		<script src="static/smart_doctor.js"></script>
+	
+	<style>
+		table.tbl_preview tr td { border:1px solid #5FAFAF; background-color:#EFF8F8;}
+		.ui-radio{ width:100%; text-shadow:none;}
+		.ui-controlgroup-controls{ width:100%;}
+		.ui-controlgroup-vertical{ width:200%;}
+		.ui-btn-active{ background-color:#6BB9E7;}
+		a{text-shadow:none;}
+		#homeMenuDiv div { padding:2px;}
+		#homeMenuDiv img:hover{ box-shadow:0px 0px 5px;}
+		
+		#pageHome ul li{ margin:2px 0px;}
+		#pageHome ul li:hover{ background-color:#F2F8FD; cursor:pointer; box-shadow:0px 0px 5px;}
+		
+		#page_area ul li{ margin:2px 0px;}
+		#page_area ul li:hover{ background-color:#F2F8FD; cursor:pointer; box-shadow:0px 0px 5px;}
+				
+		#page_district ul li{ margin:2px 0px; }
+		#page_district ul li:hover{ background-color:#F2F8FD; cursor:pointer; box-shadow:0px 0px 5px;}
+		
+		#page_doctor ul li{ background-color:#F2F8FD; }
+		#page_doctor ul li:hover{ cursor:pointer; box-shadow:0px 0px 5px;}
+		
+		#page_my_appoinment ul li{ background-color:#F2F8FD;}
+		#page_my_appoinment ul li:hover{ cursor:pointer; box-shadow:0px 0px 5px;}
+		
+	</style>
+    
+	<script type="text/javascript">
+		function MM_jumpMenu(targ,selObj,restore){ //v3.0
+		  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+		  if (restore) selObj.selectedIndex=0;
+		}
+    </script>
+    </head>
+	
+    <body>
+		 <!--===================== pageSync ==================-->
+		<div data-theme="d" data-role="page" id="login" style="overflow:scroll;">
+            <div data-theme="d" data-role="header" data-position="fixed">
+            	<a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-search" onClick="menuClick();" ></a>
+                <h3 style="text-shadow:none;">রেজীষ্ট্রেশন</h3>
+            </div>
+			
+            <div data-role="content">
+            	<div id="error_login" style="color:#1371D9"></div>                
+            			
+				<table  border="0" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; font-size:98%;">
+                    <tr >
+                      <td style="width:30%;" ><strong style="font-size:15px;">Mobile No</strong></td>
+                      <td style="width:70%;" ><input id="mobile_no" name="mobile_no" type="number"  value="" maxlength="13" ></td>              
+                    </tr>
+                    <tr >
+                      <td style="width:30%;" ><strong style="font-size:15px;">PIN</strong></td>
+                      <td style="width:70%;" ><input  id="user_pass" name="user_pass"  type="number"  value="" maxlength="4" ></td>              
+                    </tr>
+                    
+                    <tr >
+                      <td style="width:30%;" ><strong style="font-size:15px;">Name</strong></td>
+                      <td style="width:70%;" ><input id="user_name" name="user_name" type="text" value="" maxlength="50" ></td>              
+                    </tr>                  
+                 </table>
+                <br><br>
+                
+				<a data-role="button" id="loginButton" onClick="check_user();" style="text-shadow:none;" >রেজীষ্ট্রেশন</a>
+				<div align="center"><img id="wait_image_login" style="" width="50px;" src="loading.gif" alt=""></div>
+                                
+                <br>
+                PIN কোডের জন্য SMS করূন <strong>MHEALTH </strong>লিখে <strong>16435</strong> নম্বরে। <br><br><br><br><br><br><br><br>
+                        
+                <br><br><br><br><br><br>
+                       
+            </div>
+			
+        <!-- ==========footer====== -->	
+        <div data-theme="d" data-role="footer" data-position="fixed"><img src="logo_gp_1.png" style="margin:5px 0px 5px 5px; box-shadow:0px 0px 0px;" /></div>
+        
+        </div>		
+
+
+
+<!-- =====================Home page=============== --> 
+		<div data-theme="d" data-role="page" id="pageHome" style="overflow:scroll;">
+						
+            <div data-theme="d"  data-role="header" data-position="fixed" style="height:40px;" >
+            	<div class="ui-nodisc-icon">
+                    &nbsp;&nbsp;&nbsp;<a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-location" onClick="dist_page();"></a><!--<a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-user" onClick="get_profile();" ></a>-->
+                    <a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-calendar" onClick="get_my_appoinment();" ></a>
+                    <a id="btn_reg" class="ui-btn ui-shadow ui-btn-right ui-corner-all ui-btn-inline " onClick="get_login();" style="text-shadow:none;" >রেজীষ্ট্রেশন</a><span style="float:right; text-align:right; text-shadow:none; margin:15px 40px 0px 0px; font-size:15px;" id="h_user_name"></span><a id="btn_reg_1" class="ui-btn ui-shadow ui-btn-right ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-gear" onClick="get_login();" ></a>
+            	</div>
+            </div>
+                        
+			
+            <div data-role="content" style="margin-top:0px; padding-top:0px">            	
+                <div id="error_home_page" style="color:#1371D9"></div>               
+                <ul id="patient_doctor_cmb_id_lv" data-role="listview" data-inset="true">
+                </ul>
+                <br/>
+                           
+                <div data-role="fieldcontain" style="font-size:20px;" id="homeMenuDiv">                	
+                    <div class="ui-grid-b">
+                        <div class="ui-block-a" ><a onClick="dist_page('MEDICINE - INTERNAL MEDICINE');" ><img src="med.png" ></a></div><!--<img src="med.png">-->
+                        <div class="ui-block-b"><a onClick="dist_page('CARDIOLOGY');"><img src="Heart.png"></a></div>
+                        <div class="ui-block-c" ><a onClick="dist_page('DENTAL');"><img src="dental.png"></a></div>
+                    </div>                    
+                    <div class="ui-grid-b">
+                        <div class="ui-block-a"><a onClick="dist_page('DERMATOLOGY- SKIN and VD');" ><img src="skin.png"></a></div>
+                        <div class="ui-block-b" ><a onClick="dist_page('GASTRO ENTEROLOGIST');" ><img src="Gastrology.png"></a></div>
+                        <div class="ui-block-c"><a onClick="dist_page('NEURO MEDICINE - NEUROLOGY');" ><img src="neorology.png"></a></div>
+                    </div>
+                                        
+                     <div class="ui-grid-b">
+                        <div class="ui-block-a"><a onClick="dist_page('ORTHO SURGERY - ORTHOPAEDICS');"><img src="orthopadic.png"></a></div>
+                        <div class="ui-block-b"><a onClick="dist_page('EYE');" ><img src="eye.png"></a></div>          
+                        <div class="ui-block-c"><a onClick="dist_page('GYNAE and OBS');" ><img src="gynee.png"></a></div>     
+                    </div>
+                    <br/> 
+                                   
+                      <ul data-role="listview" data-inset="false" >
+                        <li onClick="dist_page('MEDICINE - INTERNAL MEDICINE');">মেডিসিন</li>                      
+                        <li onClick="dist_page('CARDIOLOGY');">হার্ট এ্যটার্ক</li>
+                        <li onClick="dist_page('DENTAL');">দাঁত</li>
+                        <li onClick="dist_page('DERMATOLOGY- SKIN and VD');">ডার্মাটোলজি- স্কীন এন্ড ভিডি</li>
+                        <li onClick="dist_page('GASTRO ENTEROLOGIST');">পেটের সমস্যা</li>
+                        <li onClick="dist_page('NEURO MEDICINE - NEUROLOGY');">নিউরোলজি</li>
+                        <li onClick="dist_page('ORTHO SURGERY - ORTHOPAEDICS');">অর্থো সার্জারী- অর্থোপেডিকস</li>
+                        <li onClick="dist_page('EYE');" >চোখের সমস্যা</li>
+                        <li onClick="dist_page('GYNAE and OBS');" >গাইনি এবং অবস</li>
+                        <li onClick="dist_page('CHILD HEALTH');">শিশু স্বাস্থ্য (pediatrician)</li>
+                        <li onClick="dist_page('DIABETIC - ENDOCRINOLOGY');">ডায়বেটিকস</li>
+                        <li onClick="dist_page('NEURO MEDICINE - NEUROLOGY');">নিউরো মেডিসিন-নিউরোলজি</li>
+                        <li onClick="dist_page('ENT');">ইএনটি(নাক কান গলা)</li>
+                        <li onClick="dist_page('ANESTHESIA');">অ্যানেস্থেশিয়া</li>
+                        <li onClick="dist_page('CANCER');">ক্যান্সার</li>
+                        <li onClick="dist_page('CARIDAC and VASCUAR SURGERY');">কার্ডিয়াক এন্ড ভ্যাসকুয়ার সার্জারী</li>
+                        <li onClick="dist_page('GENERAL SURGERY');">জেনারেল সার্জারী</li>
+                        <li onClick="dist_page('GP');">জিপি</li>
+                       <!-- <li onClick="dist_page('GP- Non Qualified');">জিপি</li>-->
+                        <li onClick="dist_page('HEMATOLOGY');">হেমাটোলজি</li>
+                        <li onClick="dist_page('HEPATOLOGY');">হেপাটোলজি</li>
+                        <li onClick="dist_page('NEPHROLOGY');">নেফ্রোলজি</li>
+                        <li onClick="dist_page('NEURO SURGERY');">নিউরো সার্জারী</li>
+                        <li onClick="dist_page('OTHERS');">অন্যান্য</li>
+                        <li onClick="dist_page('PAEDIA. SURGEY');">পেডিয়াট্রিক সার্জারী</li>
+                        <li onClick="dist_page('PHYSICAL MEDICINE');">ফিজিক্যাল মেডিসিন</li>
+                        <li onClick="dist_page('PLASTIC SURGERY');">প্লাস্টিক সার্জারী</li>
+                        <li onClick="dist_page('PSYCHIATRY');">সাইকিয়াট্রি</li>
+                        <li onClick="dist_page('TB and CHEST');">টিবি এন্ড চেস্ট</li>                        
+                        <li onClick="dist_page('UROLOGY');">ইউরোলজী</li>
+                    </ul>
+                     <br/>   
+                     <!-- <div class="ui-grid-b">
+                        <div class="ui-block-a"><a onClick="search_page();"><img src="more.png"></a></div>     
+                    </div>   --> 
+                </div>
+                 
+             </div>	
+             
+             <div data-theme="d" data-role="footer" data-position="fixed"><img src="logo_gp_1.png" style="margin:5px 0px 5px 5px; box-shadow:0px 0px 0px;" /></div>
+             			
+      </div>
+
+<!--==================district====================-->
+<div data-theme="d" data-role="page" id="page_district" style="overflow:scroll;">
+    <div data-theme="d" data-role="header" data-position="fixed">
+     <a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-search" onClick="menuClick();" ></a>
+   
+     <a data-role="button" onClick="goBackPage();" class="ui-btn-right"><img src="back.png"></a>
+     <h2 style="text-shadow:none;">District</h2>
+    </div>
+    
+    <div data-role="content" >        
+        <select id="doc_specilty_cmb" name="doc_specilty_cmb" data-native-menu="false"></select>
+        
+        <input id="doctor_district_cmb_id" data-type="search"   placeholder="Search District..">        
+        
+        <div data-role="fieldcontain" >                	
+            <div class="ui-grid-b">
+                <div class="ui-block-a" ><a data-role="button"  style="background-color:inherit; color:#0E6792;" onClick="area_list('Barisal')">Barisal</a></div>
+                <div class="ui-block-b"><a  data-role="button" style="background-color:inherit; color:#0E6792;" onClick="area_list('Chittagong')">Chittagong</a></div>
+                <div class="ui-block-c" ><a  data-role="button" style="background-color:inherit; color:#0E6792;" onClick="area_list('Dhaka')">Dhaka</a></div>
+            </div>                    
+            <div class="ui-grid-b">
+                <div class="ui-block-a"><a  data-role="button" style="background-color:inherit; color:#0E6792;" onClick="area_list('Rajshahi')">Rajshahi</a></div>
+                <div class="ui-block-b" ><a data-role="button" style="background-color:inherit; color:#0E6792;" onClick="area_list('Rangpur')">Rangpur</a></div>
+                <div class="ui-block-c"><a data-role="button" style="background-color:inherit; color:#0E6792;" onClick="area_list('Khulna')">Khulna</a></div>
+            </div>
+        </div>
+        <br/>
+        <ul id="doctor_district_cmb_id_lv" data-role="listview" data-inset="false" data-filter="true" data-filter-reveal="false" data-input="#doctor_district_cmb_id">
+        </ul>
+        <br>
+        <div align="center"><!--<img id="wait_image_doctor_search" style="" width="50px;" src="loading.gif" alt="">--></div>
+        
+    </div><!--/cont-->
+    
+    <div data-theme="d" data-role="footer" data-position="fixed" ><img src="logo_gp_1.png" style="margin:5px 0px 5px 5px; box-shadow:0px 0px 0px;" /></div>			
+ </div><!--/page-->
+
+<!--==================Area===================-->
+<div data-theme="d" data-role="page" id="page_area" style="overflow:scroll;">
+    <div data-theme="d" data-role="header" data-position="fixed">
+     <a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-search" onClick="menuClick();" ></a>
+   
+     <a data-role="button" onClick="goBackPage();" class="ui-btn-right"><img src="back.png"></a>
+     <h2 style="text-shadow:none;">Area</h2>
+    </div>
+    
+    <div data-role="content" >
+        <!--<div id="error_search_list" style="color:#1371D9">&nbsp;</div><br/><br/>-->
+         <ul data-role="listview" data-inset="false" >					
+            <li style="background-color:#F2F2F2;">
+            	<div >District:&nbsp;<span class="dist_show" style="font-weight:bold"></span></div>
+                <div >Specialty:&nbsp;<span class="specialty_show" style="font-weight:bold"></span></div>                
+            </li>
+        </ul>
+        <br/>
+        <!--<select name="doctor_specialty" id="doctor_specialty_cmb_id" data-native-menu="false">
+        </select>-->
+        <input id="doctor_location_cmb_id" data-type="search"   placeholder="Search location.." >
+        <br/>
+        <ul id="doctor_location_cmb_id_lv" data-role="listview" data-count-theme="d" data-inset="false" data-filter="true" data-filter-reveal="false" data-input="#doctor_location_cmb_id">
+        </ul>
+        
+        <br>
+        
+        <div align="center"><img id="wait_image_doctor_search" style="" width="50px;" src="loading.gif" alt=""></div>
+        
+    </div><!--/cont-->
+    
+    <div data-theme="d" data-role="footer" data-position="fixed" ><img src="logo_gp_1.png" style="margin:5px 0px 5px 5px; box-shadow:0px 0px 0px;" /><!--<a data-role="button" style="width:70%" id="btn_sync_location" onClick="sync_location();" >Search for more location</a>--></div>			
+ </div><!--/page-->
+
+
+<!--==================Doctor List====================-->
+<div data-theme="d" data-role="page" id="page_doctor" style="overflow:scroll;">
+    <div data-theme="d" data-role="header" data-position="fixed" style="height:50px;">  
+    <a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-search" onClick="menuClick();" ></a>
+    <a data-role="button" onClick="goBackPage();" class="ui-btn-right"><img src="back.png"></a>
+     <h3>Doctor</h3>
+    </div>
+    
+    <div data-role="content" style="padding-top:0px; ">
+        <!--<div id="error_doctor_list" style="color:#1371D9"></div>--><br/>
+        <ul data-role="listview" data-inset="false" >					
+            <li style="background-color:#F2F2F2;">
+            	<div >District:&nbsp;<span class="dist_show" style="font-weight:bold"></span></div>
+                <div >Area:&nbsp;<span class="area_show" style="font-weight:bold"></span></div>
+                <div >Specialty:&nbsp;<span class="specialty_show" style="font-weight:bold"></span></div>                
+            </li>
+        </ul>
+        <br/>
+        <!--<ul data-role="listview" data-inset="true" >					
+            <li style="background-color:#F2F2F2;">
+                <div>Specialty:&nbsp;<span class="specialty_show" style="font-weight:bold"></span></div>
+                <div>Location&nbsp;:&nbsp;<span class="district_show"></span></div>
+            </li>
+        </ul>-->
+         <!-- List view-------------------->
+        <input id="doctor_cmb_id" data-type="search" placeholder="Area/ Dr. Name/ Specialty ">		        
+        <ul id="doctor_cmb_id_lv" style="border:none; box-shadow:none;" data-role="listview" data-filter="true" data-input="#doctor_cmb_id" data-inset="true">
+        </ul>                
+        <!-- List ---->
+        
+        
+        <br>
+        <div align="center"><img id="wait_image_doctor_list" style="" width="50px;" src="loading.gif" alt=""></div>
+        
+    </div><!--/cont-->
+    
+    <div data-theme="d" data-role="footer" data-position="fixed"><img src="logo_gp_1.png" style="margin:5px 0px 5px 5px; box-shadow:0px 0px 0px;" /></div>
+    
+       			
+ </div><!--/page-->
+
+<!--================== Doctor Chember ====================-->
+<div data-theme="d" data-role="page" id="page_doctor_chamber" style="overflow:scroll;">
+    <div data-theme="d" data-role="header" data-position="fixed">    
+     <a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-search" onClick="menuClick();" ></a>
+    <!--<a  data-role="button" href="#pageHome" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home">&nbsp;</a>-->
+    <a data-role="button" onClick="goBackPage();" class="ui-btn-right"><img src="back.png"></a>
+        <h3 >Chamber</h3>
+    </div>
+    
+    
+    <div data-role="content" style="padding-top:0px; ">
+        <br/>
+        <ul data-role="listview" data-inset="false">					
+            <li style="background-color:#F2F2F2;">
+                <div>Specialty:&nbsp;<span class="specialty_show" style="font-weight:bold"></span></div>
+                <!--<div>Location&nbsp;:&nbsp;<span class="district_show"></span></div>-->
+                <div>Doctor&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<span class="doctor_name_show"></span></div>
+                <!--<div>Dr.Code:<span class="doctor_id_show"></span></div>-->
+                <input type="hidden" id="doctor_area_district" name="doctor_area_district" value="">
+            </li>
+        </ul>
+        <br/> <br/>      
+         <!-- List view-------------------->        		        
+        <!--<ul id="chamber_cmb_id_lv" data-role="listview" data-filter="false" data-input="#chamber_cmb_id" data-inset="true">
+        </ul>-->
+        
+        <div id="chamber_cmb_id_div" ></div>
+         
+        <!-- List ---->
+        <br/>
+        <p  >Appointment Date:
+        <input type="date" id="appointment_date" name="appointment_date" value="" placeholder="MM/DD/YYYY">
+        </p>
+        
+        <div id="error_chamber_list" style="color:#1371D9"></div>
+        
+        <div align="center"><img id="wait_image_doctor_chamber" style="" width="50px;" src="loading.gif" alt=""></div>
+        
+        
+    </div><!--/cont-->
+    
+    <div data-theme="d" data-role="footer" data-position="fixed" style="text-align:center;" id="appoinment_footer_1"><h3>Schedule Unavailable</h3></div>    
+    <div data-theme="d" data-role="footer" data-position="fixed" style="text-align:center;" id="appoinment_footer_2"><a data-role="button" style="width:70%" id="submitButton1" onClick="appointment_submit('MAIN');" >Request Appointment</a></div>			
+ </div><!--/page-->
+
+<!--==================appoinment List====================-->
+<div data-theme="d" data-role="page" id="page_my_appoinment" style="overflow:scroll;">
+    <div data-theme="d" data-role="header" data-position="fixed" style="height:50px;">  
+    <a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-search" onClick="menuClick();" ></a>
+    <a data-role="button" onClick="goBackPage();" class="ui-btn-right"><img src="back.png"></a>
+     <h3>My Appointments</h3>
+    </div>
+    
+    <div data-role="content" style="padding-top:0px; ">
+       <div id="error_appointment_list" style="color:#1371D9"></div>
+        <!--<ul data-role="listview" data-inset="true" >					
+            <li style="background-color:#F2F2F2;">
+                <div>Specialty:&nbsp;<span class="specialty_show" style="font-weight:bold"></span></div>
+                <div>Location&nbsp;:&nbsp;<span class="district_show"></span></div>
+            </li>
+        </ul>-->
+                
+         <!-- List view-------------------->
+        <!--<input id="my_appoinment_cmb_id" data-type="search" placeholder="Area/ Dr. Name/ Specialty ">  		        
+        <ul id="my_appoinment_li" style="border:none; box-shadow:none;" data-role="listview" data-filter="true" data-input="#my_appoinment_cmb_id" data-inset="true">
+        </ul> --> 
+        <div id="my_appoinment_div" ></div>           
+       
+        
+        <br>
+       <!-- <div align="center"><img id="wait_image_doctor_list" style="" width="50px;" src="loading.gif" alt=""></div>-->
+        
+    </div><!--/cont-->
+    
+    <div data-theme="d" data-role="footer" data-position="fixed"><img src="logo_gp_1.png" style="margin:5px 0px 5px 5px; box-shadow:0px 0px 0px;" /></div>
+    
+       			
+ </div><!--/page-->
+
+
+
+
+
+
+<!--==================xxxxxx ====================-->
+<div data-theme="d" data-role="page" id="page_chamber_details" style="overflow:scroll;">
+    <div data-theme="d" data-role="header" data-position="fixed">   
+    <a  data-role="button" href="#"  onClick="menuClick()" class="ui-btn-left ui-btn-icon-notext"><img src="menu.png"></a> 
+    <!--<a  data-role="button" href="#pageHome" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home">&nbsp;</a>-->
+    <a data-role="button" data-rel="back"  data-iconpos="left" class="ui-btn-right"><img src="back.png"></a>
+        <h3 >Chamber Details</h3>
+    </div>
+    
+    
+    <div data-role="content" style="padding-top:0px; ">
+        <br/>
+        <ul data-role="listview" data-inset="false">					
+            <li style="background-color:#F2F2F2;">
+                <div>Specialty:&nbsp;<span class="specialty_show" style="font-weight:bold"></span></div>
+                <div>Location&nbsp;:&nbsp;<span id="last_district_show" class="district_show"></span></div>
+                <div>Doctor&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;<span class="doctor_name_show"></span></div>
+                <input type="hidden" id="doctor_chamber_details_id" name="doctor_chamber_details_id" value="">                
+            </li>
+        </ul>
+         <br/> <br/>      
+        <div id="chamber_cmb_id_div_chamber_details" ></div>
+         
+        <!-- List ---->
+        <br/>
+        <p >Appointment Date:
+        <input type="date" id="appointment_date_chamber_details" name="appointment_date_chamber_details" value="" placeholder="Select Appointment Date">
+        </p>
+        
+        <div id="error_chamber_details" style="color:#1371D9"></div>
+        
+        <div align="center"><img id="wait_image_doctor_chamber_details" style="" width="50px;" src="loading.gif" alt=""></div>
+        
+    </div><!--/cont-->
+    
+    <div data-theme="d" data-role="footer" data-position="fixed" style="text-align:center"><a data-role="button" style="width:70%" id="submitButton2" onClick="appointment_submit('DETAILS');" >Request Appointment</a></div>
+
+ </div><!--/page-->
+
+<!-- ------------- Visit Success -------------------- -->
+	<div data-theme="d" data-role="page" id="page_success" style="overflow:scroll;" >
+		<div data-theme="d" data-role="header" data-position="fixed" >
+		<a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-search" onClick="menuClick();" ></a>
+        <!--<a data-role="button" data-rel="back"  data-iconpos="left" class="ui-btn-right"><img src="back.png"></a>-->
+        <h3>Success</h3>
+	  </div>
+		<div data-role="content">
+        	<!--<div>Submitted Successfully</div>-->		
+            <br>
+            			
+            <div id="success_message" style="background-color:#EFF8F2; width:90%; margin:0px auto; height:200px; color:#589A6C; font-size:20px; vertical-align:middle; text-align:center; padding:5px; border-radius:10px; border:1px solid #569E77;" ></br>&nbsp;</div>
+            
+            <!--<div id="success_message" style="background-image:url(result_back.png); background-repeat:no-repeat; width:300px; margin:0px auto; height:200px; color:#FFF; font-size:20px; vertical-align:middle; text-align:center; padding:5px;" ></br>&nbsp;</div>-->
+            
+            
+		</div>
+		
+		<div data-theme="d" data-role="footer" data-position="fixed" style="text-align:center"><img src="logo_gp_1.png" style="margin:5px 0px 5px 5px; box-shadow:0px 0px 0px;" /></div>	
+	</div>
+
+
+<!--==========================Profile====================-->
+<div data-theme="d" data-role="page" id="page_profile" style="overflow:scroll;">
+    <div data-theme="d" data-role="header" data-position="fixed">
+    <a class="ui-btn ui-shadow ui-corner-all ui-btn-icon-notext ui-btn-inline ui-icon-home" onClick="menuClick();" ></a>
+   
+        <h3 style="text-shadow:none;" >Profile</h3>
+    </div>
+    
+    <div data-role="content">
+        
+        
+        <table  border="0" class="ui-body-d ui-shadow table-stripe ui-responsive" data-role="table" data-theme="d"  data-mode="display:none" style="cell-spacing:0px; width:100%; font-size:98%;">
+        	<!--<tr >
+              <td style="width:100%;" ><strong style="font-size:15px;">Member ID:</strong><input id="patient_id" name="patient_id" type="text" style="background-color:#EDF8FE;" readonly ></td>
+                       
+            </tr>-->
+            <tr >
+              <td style="width:100%;" ><strong style="font-size:15px;">Mobile:</strong><input  id="patient_mobile" name="patient_mobile"  type="text"  style="background-color:#EDF8FE" readonly></td>
+            </tr>
+            
+            <tr >
+              <td style="width:100%;" ><strong style="font-size:15px;">Name:</strong><input id="patient_name" name="patient_name" type="text"></td>
+            </tr>
+            
+            <tr >
+              <td style="width:100%;" ><strong style="font-size:15px;0">Address:</strong><input  id="patient_address" name="patient_address"  type="text"></td>
+            </tr>
+            </table>
+        <br>
+
+	
+         <a data-role="button"  onClick="profile_edit();" id="btn_profile_update">Update Profile</a>
+         
+    	<div id="error_profile_edit" style="color:#1371D9"></div>        
+        <div align="center"><img id="wait_image_profile" style="" width="50px;" src="loading.gif" alt=""></div>
+        
+    </div><!--/cont-->
+    <br>
+
+   	
+    
+    <br>
+<br>
+<br>
+<br>
+<br>
+
+    <div data-theme="d" data-role="footer" data-position="fixed"><img src="logo_gp_1.png" style="margin:5px 0px 5px 5px; box-shadow:0px 0px 0px;" /></div>			
+ </div><!--/page-->
+
+<!--========================New Appoinment==================-->
+     
+    <script type="text/javascript" src="phonegap.js"></script>
+    
+    
+    </body>
+</html>
