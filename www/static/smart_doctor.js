@@ -1,8 +1,8 @@
 // Patient
 // 
 //online
-var apipath="http://eapps001.cloudapp.net/smart_doctor/";
-var imgPath="http://eapps001.cloudapp.net/smart_doctor/static/doc_image/";
+var apipath="http://e3.businesssolutionapps.com/smart_doctor/";
+var imgPath="http://e3.businesssolutionapps.com/smart_doctor/static/doc_image/";
 
 //local
 //var apipath="http://127.0.0.1:8000/smart_doctor/";
@@ -603,6 +603,7 @@ function check_user() {
 
 
 function appointment_submit(submitFrom){	
+
 	var lastAreaDistName=$("#last_district_show").text();
 	localStorage.lastAreaDistName=lastAreaDistName
 	
@@ -635,7 +636,7 @@ function appointment_submit(submitFrom){
 			var appointmentDate=''
 			if (submitFrom=='MAIN'){		
 				appointmentDate=$("#appointment_date").val();
-				//appointmentDate=appointmentDate.substring(6,10)+"-"+appointmentDate.substring(3,5)+"-"+appointmentDate.substring(0,2);
+				appointmentDate=appointmentDate.substring(6,10)+"-"+appointmentDate.substring(3,5)+"-"+appointmentDate.substring(0,2);////Faisal
 			}else{
 				appointmentDate=$("#appointment_date_chamber_details").val();
 			}
@@ -680,7 +681,7 @@ function appointment_submit(submitFrom){
 						var doctorName=doctorArray[0]
 						var doctorId=doctorArray[1]
 						
-						var msg="DOC"+doctorId+chamberId+"."+appointmentDate.substring(8,10)+"."+localStorage.user_name;
+						var msg="DR"+doctorId+chamberId+" "+appointmentDate.substring(8,10)+" "+localStorage.user_name;
 						
 						//alert(appointmentDate.substring(8,10))
 						//alert(apipath+"sms_api/sms_submit?password=Compaq510DuoDuo&mob="+localStorage.user_mobile+"&midia=app&msg="+msg)
@@ -691,7 +692,7 @@ function appointment_submit(submitFrom){
 						//alert(apipath+"sms_api/sms_submit?password=Compaq510DuoDuo&mob="+localStorage.user_mobile+"&midia=app&msg="+msg+'&sync_code='+localStorage.sync_code);
 										
 						// ajax------- 2015-10-20
-						
+						//alert(apipath+"sms_api/sms_submit?password=Compaq510DuoDuo&mob="+localStorage.user_mobile+"&media=app&msg="+msg+'&sync_code='+localStorage.sync_code);
 						
 						$.ajax({
 							 type: 'POST',
