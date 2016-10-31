@@ -103,7 +103,7 @@ $(document).ready(function(){
 						var doctorName=doctorListArray[1];
 						var showSpecialty=doctorListArray[2];
 						if (doctorID!=''){
-							doctor_cmb_list+='<li style="border-bottom-style:solid;border-color:#CBE4E4;border-bottom-width:thin; padding:10px 5px;"><a style="height:auto;" onClick="doctor_chamber(\''+doctorName+'-'+doctorID+'\')">Dr. '+doctorName+'-'+doctorID+'</li>';
+							doctor_cmb_list+='<li style="border-bottom-style:solid;border-color:#CBE4E4;border-bottom-width:thin; padding:10px 5px;"><a style="height:auto;" onClick="doctor_chamber(\''+doctorName+'-'+doctorID+'\')">'+doctorName+'-'+doctorID+'</li>';
 						}
 					}
 					
