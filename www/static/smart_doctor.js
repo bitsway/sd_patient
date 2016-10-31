@@ -636,7 +636,7 @@ function appointment_submit(submitFrom){
 			var appointmentDate=''
 			if (submitFrom=='MAIN'){		
 				appointmentDate=$("#appointment_date").val();
-				appointmentDate=appointmentDate.substring(6,10)+"-"+appointmentDate.substring(3,5)+"-"+appointmentDate.substring(0,2);////Faisal
+				//appointmentDate=appointmentDate.substring(6,10)+"-"+appointmentDate.substring(3,5)+"-"+appointmentDate.substring(0,2);////Faisal
 			}else{
 				appointmentDate=$("#appointment_date_chamber_details").val();
 			}
@@ -653,12 +653,13 @@ function appointment_submit(submitFrom){
 				
 			var year=now.getUTCFullYear();
 			
-			var currentDay = new Date(year+ "-" + month + "-" + day);	
-			var appointment_date = new Date(appointmentDate);
+			var currentDay = new Date(year+ "-" + month + "-" + day);
 			
+			var appointment_date = new Date(appointmentDate);
+			//alert(appointment_date);
 			
 			if (appointment_date=='Invalid Date'){		
-				$("#error_chamber_list").text("Select a date");
+				$("#error_chamber_list").text("Select a date 1");
 				$("#error_chamber_details").html("Select a date");			
 				
 			}else{
